@@ -93,7 +93,7 @@ with st.sidebar:
 
     feedback_classifier_agent = Agent(
         role='Classify feedback into one of the five categories: bug, feature request, praise, complaint and spam along with confidence_score for the identified class; '
-            'if confidence_score is less than {c_score} for any record, take and use human input on which category to use only for that record',
+            'if confidence_score is less than {c_score} for any record, take the option with highest score for that record',
         goal='Categorize feedback into given categories and identify confidence_score',
         backstory='Expert in understanding customer issues from their feedback and categorizing those',
         verbose=True,
@@ -150,9 +150,9 @@ with st.sidebar:
     )
 
     feedback_classifier_task = Task(
-        description="identify the category of the feedback along with confidence_score; if confidence_score is less than {c_score} for any record present it to human and ask which category to use for that record and use that for final output.",
+        description="identify the category of the feedback along with confidence_score; if confidence_score is less than {c_score} for any record take the option with highest score.",
         expected_output="A string containing one of - bug, feature request, praise, complaint, spam and confidence_score.",
-        human_input=True,
+#        human_input=True,
         agent=feedback_classifier_agent
     )
 
